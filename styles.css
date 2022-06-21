@@ -3,6 +3,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f3f3f3;
+    Line-height: 20px;
 }
 
 * {
@@ -33,10 +34,16 @@ body {
         z-index: 1;
     }
 
-    .header ion-icon {
+    .header > ion-icon {
         width: 45px;
         height: 45px;        
     }
+
+    .header > img {
+        width: 75px;
+        height: 53px;        
+    }
+
 
     /*main*/
     .main {
@@ -46,15 +53,16 @@ body {
         padding-top: 26px;
         padding-bottom: 80px;
         background-color: #f3f3f3;
-    }
-    
+    }    
     
     .message{
         display: flex;
         flex-wrap: wrap;
     }
     
-    .status-msg, .normal-msg, .private-msg {
+    .status-msg, 
+    .normal-msg, 
+    .private-msg {
         padding: 10px;
         margin-bottom: 4px;
         border-radius: 2px;
@@ -71,7 +79,6 @@ body {
     .private-msg {
         background-color: #ffdede;
     }
-
 
 
     /*footer*/
@@ -112,4 +119,66 @@ body {
         margin-left: 22px; 
     }
 
+    /*sidebar*/
+    .modal {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: flex-end;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 2;
+    }
+
+    .sidebar {
+        width: 69%;
+        height: 100%;
+        font-size: 16px;
+        background-color: #ffffff;
+    }
+    
+    .chooseContacts,
+    .chooseVisibility {
+        width: 100%;
+        height: 84px;
+        display: flex;
+        text-align: center;
+        align-items: center;
+    }
+
+    .chooseVisibility {
+        height: 66px;
+        justify-content: center;
+    }
+
+    .contacts > ion-icon {
+        font-size: 25px;
+        margin-right: 7px;
+        margin-left: 17px;
+    }
+
+    .visibility > ion-icon {
+        font-size: 22px;
+        margin-right: 7px;
+        margin-left: 17px;
+    }
+
+    h1 {
+        font-weight: 700;
+    }
+
+    li {
+        height: 37px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+    }
+
+
+    /*js interaction*/
+    .hide {
+        display: none;
+    }    
 }
