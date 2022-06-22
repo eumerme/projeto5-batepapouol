@@ -3,7 +3,8 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f3f3f3;
-    Line-height: 20px;
+    line-height: 16px;
+    font-size: 14px;
 }
 
 * {
@@ -29,7 +30,7 @@ body {
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 3;
+        z-index: 4;
     }
 
     .login-page > img {
@@ -60,6 +61,7 @@ body {
     .login-page > div {
         width: 109px;
         height: 45px;
+
         color: #696969;
         background-color: #e7e7e7;
         border-radius: 9px;
@@ -67,6 +69,40 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+
+    /*loading page*/
+    .loading-page {
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        
+    }
+
+    .logo {
+        width: 130px;
+        height: 92px;
+        margin-top: 72px;
+        margin-bottom: 94px;
+    }
+
+    .gif {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 20px;
+    }
+
+    .loading-page > a {
+        font-size: 18px;
+        font-weight: 400;
     }
 
 
@@ -106,12 +142,7 @@ body {
         padding-bottom: 80px;
         background-color: #f3f3f3;
     }    
-    
-    .message{
-        display: flex;
-        flex-wrap: wrap;
-    }
-    
+        
     .status-msg, 
     .normal-msg, 
     .private-msg {
@@ -132,7 +163,17 @@ body {
         background-color: #ffdede;
     }
 
+    .msg-time {
+        font-weight: 400;
+        color: #aaaaaa;
+        margin-right: 4px;
+    }
 
+    .name {
+        font-weight: 700;
+    }
+
+    
     /*sidebar*/
     .modal {
         width: 100%;
@@ -150,6 +191,7 @@ body {
         width: 69%;
         height: 100%;
         font-size: 16px;
+        line-height: 20px;
         background-color: #ffffff;
     }
     
@@ -157,6 +199,7 @@ body {
     .chooseVisibility {
         width: 100%;
         height: 84px;
+        padding: 0 43px;
         display: flex;
         text-align: center;
         align-items: center;
@@ -166,14 +209,22 @@ body {
         height: 66px;
         justify-content: center;
     }
+  
+    .contact-options,
+    .visibility-options {
+        height: 37px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+    }
 
-    .contacts > ion-icon {
+    .contact-options > ion-icon {
         font-size: 25px;
         margin-right: 7px;
         margin-left: 17px;
     }
 
-    .visibility > ion-icon {
+    .visibility-options > ion-icon {
         font-size: 22px;
         margin-right: 7px;
         margin-left: 17px;
@@ -183,14 +234,31 @@ body {
         font-weight: 700;
     }
 
-    li {
-        height: 37px;
-        font-weight: 400;
-        display: flex;
-        align-items: center;
+    .check {
+        width: 14px;
+        height: 12px;
+        position: fixed;
+        right: 27px;
+        opacity: 0; 
     }
 
+    .check-selected {
+        opacity: 1;
+    }
 
+    .back-to-main {
+        width: 40px;
+        height: 40px;
+        font-size: 27px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    
     /*footer*/
     .footer {
         width: 100%;
