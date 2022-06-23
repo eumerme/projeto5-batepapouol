@@ -149,6 +149,7 @@ body {
         padding: 10px;
         margin-bottom: 4px;
         border-radius: 2px;
+        word-break: break-all;
     }
 
     .normal-msg {
