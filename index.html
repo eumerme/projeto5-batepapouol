@@ -13,7 +13,7 @@
     <div class="hide login-page">
         <img src="./images/logobatepapo.png" alt="">
         <input type="text" placeholder="Digite seu nome">
-        <div>Entrar</div>
+        <div onclick="loginPage();">Entrar</div>
     </div>
 
     <!--loading page-->
@@ -43,13 +43,13 @@
             <div class="normal-msg">
                 <span class="msg-time">(10:29:55)</span>
                 <span class="name">maria</span>
-                <span class="msg">entrou na sala</span>
+                <span class="msg">fala galera</span>
             </div>
 
             <div class="private-msg">
                 <span class="msg-time">(10:29:55)</span>
                 <span class="name">joão</span>
-                <span class="msg">entrou na sala</span>
+                <span class="msg">oi htinha</span>
            </div>
         
     </div>
@@ -70,7 +70,7 @@
                 <li class="info-contact" onclick="contactSelected(this);">                   
                     <div class="contact-options">
                         <ion-icon name="people"></ion-icon> 
-                        <a>Todos</a>
+                        <p>Todos</p>
                         <img class="check" src="./images/Vector.png" alt="">
                     </div>
                 </li>
@@ -78,7 +78,7 @@
                 <li class="info-contact" onclick="contactSelected(this);">
                     <div class="contact-options">
                         <ion-icon name="person-circle"></ion-icon>
-                        <a>João</a>
+                        <p>João</p>
                         <img class="check" src="./images/Vector.png" alt="">
                     </div>
                 </li>
@@ -86,7 +86,7 @@
                 
             </ul>
 
-            <!--status-->
+            <!--visibility-->
             <div class="chooseVisibility">
                 <h1>Escolha a visibilidade</h1>
             </div>
@@ -96,7 +96,7 @@
                 <li class="info-visibility" onclick="visibilitySelected(this);">
                     <div class="visibility-options">
                         <ion-icon name="lock-open"></ion-icon>
-                        <a>Público</a>
+                        <p>Público</p>
                         <img class="check" src="./images/Vector.png" alt="">
                     </div>
                 </li>
@@ -104,7 +104,7 @@
                 <li  class="info-visibility" onclick="visibilitySelected(this);">                  
                     <div class="visibility-options">
                         <ion-icon name="lock-closed"></ion-icon>
-                        <a>Privado</a>
+                        <p>Privado</p>
                         <img class="check" src="./images/Vector.png" alt="">
                     </div>
                 </li>
@@ -128,6 +128,7 @@
 
     
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
