@@ -54,6 +54,7 @@ function closeLoadingPage (){
 
 //---------------------- variaveis api
 let content = [];
+let onlineUsers = [];
 let userName;
 let message = "";   //==== VER COMO LIMPAR O INPUT DEPOIS QUE ENVIA A MSG
 //------------------
@@ -82,6 +83,7 @@ function loginPage () {
 function loginSuccess() {
     closeLoginPage();
     getMessages (); 
+    getUsers ();
 }
 
 //VERIFICAÇÃO DO ERRO da entrada
@@ -133,7 +135,7 @@ function renderMessages () {
                     <span class="msg-time">${content[i].time}</span>
                     <span class="name">${content[i].from}</span>
                         para 
-                    <span class="name">${content[i].to}:</span>
+                    <span class="to">${content[i].to}:</span>
                     <span class="msg">${content[i].text}</span>
                 </div>
             `
@@ -145,7 +147,7 @@ function renderMessages () {
                     <span class="msg-time">${content[i].time}</span>
                     <span class="name">${content[i].from}</span>
                         para 
-                    <span class="name">${content[i].to}:</span>
+                    <span class="to">${content[i].to}:</span>
                     <span class="msg">${content[i].text}</span>
                 </div>
             `
@@ -157,21 +159,26 @@ function renderMessages () {
                     <span class="msg-time">${content[i].time}</span>
                     <span class="name">${content[i].from}</span>
                         para 
-                    <span class="name">${content[i].to}:</span>
+                    <span class="to">${content[i].to}:</span>
                     <span class="msg">${content[i].text}</span>
                 </div>
             `
         }      */    
     }
     
-    const scroll = document.querySelector('.main div:last-child');
-    scroll.scrollIntoView();
-    
+    autoScroll(); //scroll automatico
     setInterval(getMessages, 3000); //atualizar feed
     setInterval(stillActive, 5000); //mostrar ativididade
+    setInterval(getUsers, 10000); //atuliazar participantes online
 }
 
-//-----------MOSTRAR ATIVIDADE
+//scroll automatico
+function autoScroll () {
+    const scroll = document.querySelector('.main div:last-child');
+    scroll.scrollIntoView();
+}
+
+//MOSTRAR ATIVIDADE
 function stillActive () {
     console.log("ainda ativo"); //apagar dps
 
@@ -185,7 +192,7 @@ function stillActive () {
 
 
 //----------------------PARA ENVIAR MENSAGEM 
-function sentMessage() {
+function sendMessage() {
     message = document.querySelector(".footer > input").value;
 
     let promise = axios.post(
@@ -210,8 +217,62 @@ function msgSuccess (){
 }
 
 //erro no envio da mensagem
-function msgFail (){
+function msgFail (error){
     console.log(`Status code: ${error.response.status}`);
 
+    alert("Desculpe, vocẽ foi desconectado! Tente novamente.")
     window.location.reload();
+}
+
+
+
+
+//--------------------------BUSCAR PARTICIPANTES
+function getUsers () {
+    console.log("buscando participantes");
+
+    let promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
+
+    promise.then(users);  //se buscar os participantes
+    promise.catch(msgFail);   //se der erro
+}
+
+//etapa 2 - bse uscar participantes
+function users (response){
+    console.log(`colocou os participantes no content`);
+
+    onlineUsers = response.data
+   
+    renderUsers ();
+}
+
+
+//ETAPA 3 - RENDERIZAR O ONLINEUSERS NO DOM
+function renderUsers () {
+    console.log("renderizou os participantes no dom") //apagar dps
+
+    const users = document.querySelector(".contacts");
+    users.innerHTML = `
+        <li class="info-contact" onclick="contactSelected(this);">                   
+            <div class="contact-options">
+                <ion-icon name="people"></ion-icon> 
+                <p>Todos</p>
+                <img class="check" src="./images/Vector.png" alt="">
+            </div>
+        </li>
+    `;
+
+    for (let i = 0; i < onlineUsers.length; i++) {
+
+        users.innerHTML += `
+            <li class="info-contact" onclick="contactSelected(this);">
+                <div class="contact-options">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <p>${onlineUsers[i].name}</p>
+                    <img class="check" src="./images/Vector.png" alt="">
+                </div>
+            </li>
+        `
+        //tentar tirar meu nome da lista de paticipantes dps
+    }
 }
