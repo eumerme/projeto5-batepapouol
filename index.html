@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="styles.css">
-    <title>Bate Papo Uol</title>
+    <title>Bate-Papo UOL</title>
 </head>
 <body>
     <!--login page-->
@@ -15,6 +15,7 @@
         <input type="text" placeholder="Digite seu nome">
         <div onclick="loginPage();">Entrar</div>
     </div>
+
 
     <!--loading page-->
     <div class="loading-page">
@@ -33,31 +34,17 @@
 
     <!--main-->
     <div class="main">
-            
-            <div class="status-msg">
-                <span class="msg-time">(10:29:55)</span>
-                <span class="name">joão</span>
-                <span class="msg">entrou na sala</span>
-            </div>
-
-            <div class="normal-msg">
-                <span class="msg-time">(10:29:55)</span>
-                <span class="name">maria</span>
-                <span class="msg">fala galera</span>
-            </div>
-
-            <div class="private-msg">
-                <span class="msg-time">(10:29:55)</span>
-                <span class="name">joão</span>
-                <span class="msg">oi htinha</span>
-           </div>
-        
     </div>
 
     
-    <!--sidebar-->
+    <!--modal-->
     <div class="hide modal">
 
+        <!--blur-->
+        <div class="blur" onclick="closeSidebar(this);">
+        </div>
+
+        <!--sidebar-->
         <div class="sidebar">
 
             <!--contacts-->
@@ -111,10 +98,6 @@
 
             </ul>
 
-            <div class="back-to-main" onclick="closeSidebar(this);">
-                <ion-icon name="arrow-undo-circle"></ion-icon>
-            </div>
-
         </div>
 
     </div>
@@ -122,8 +105,9 @@
 
     <!--footer-->
     <div class="footer">
-        <input class="chat" type="text" placeholder="Escreva aqui..." >
-        <ion-icon name="paper-plane-outline"></ion-icon>
+        <!--testar textarea (aula 22/06) ao inves do input-->
+        <input type="text" placeholder="Escreva aqui..." >
+        <ion-icon onclick="sentMessage();" name="paper-plane-outline"></ion-icon>
     </div>
 
     

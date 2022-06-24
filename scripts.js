@@ -55,6 +55,7 @@ function closeLoadingPage (){
 //---------------------- variaveis api
 let content = [];
 let userName;
+let message = "";   //==== VER COMO LIMPAR O INPUT DEPOIS QUE ENVIA A MSG
 //------------------
 
 
@@ -62,7 +63,7 @@ let userName;
 function loginPage () {    
     userName = document.querySelector(".login-page > input").value; 
 
-    if(userName === ""){
+    if(userName === undefined){
         return;
     }
 
@@ -77,17 +78,18 @@ function loginPage () {
     promise.catch(loginFail);   //VERIFICÇÃO DO ERRO da entrada
 }
 
-
-//------------VERIFICAÇÃO DO ERRO da entrada
-function loginFail () {
-    alert("Já existe um usuário online com esse nome, por favor escolha outro.");
-}
-
-//----------------VERIFICAÇÃO DA ENTRADA
+//VERIFICAÇÃO DA ENTRADA
 function loginSuccess() {
     closeLoginPage();
     getMessages (); 
 }
+
+//VERIFICAÇÃO DO ERRO da entrada
+function loginFail () {
+    alert("Já existe um usuário online com esse nome, por favor escolha outro.");
+}
+
+
 
 
 //--------------------------------------
@@ -104,8 +106,7 @@ function getMessages () {
 
 //etapa 2 - se der erro
 function erro (error){
-    let fail = error.response.status;
-    console.log(fail);
+    console.log(`Status code: ${error.response.status}`);
 }
 
 //ETAPA 2 - JOGAR AS MSG DO SRVIDOR NA VARIAVEL CONTENT
@@ -180,4 +181,37 @@ function stillActive () {
             name: userName,
         }
     );   
+}
+
+
+//----------------------PARA ENVIAR MENSAGEM 
+function sentMessage() {
+    message = document.querySelector(".footer > input").value;
+
+    let promise = axios.post(
+        "https://mock-api.driven.com.br/api/v6/uol/messages",
+        {
+            from: userName,
+            to: "Todos", //ou privado para o bônus
+            text: message,
+            type: "message" // ou "private_message" para o bônus
+        }
+    );
+
+    promise.then(msgSuccess);
+    promise.catch(msgFail);
+}
+
+//mensagem enviada com sucesso
+function msgSuccess (){
+    console.log(`Msg enviada com sucesso`);
+
+    getMessages();
+}
+
+//erro no envio da mensagem
+function msgFail (){
+    console.log(`Status code: ${error.response.status}`);
+
+    window.location.reload();
 }
