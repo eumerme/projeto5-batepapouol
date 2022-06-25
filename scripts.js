@@ -11,7 +11,7 @@ function closeSidebar (sidebar) {
 //----------------------- contact selected
 function contactSelected (contact) {
     const check = contact.querySelector(".info-contact .check");
-    const checkSelected = document.querySelector(".info-contact .check-selected");
+    const checkSelected = document.querySelector(".info-contact .check.check-selected");
 
     if (checkSelected !== null) {
         checkSelected.classList.remove("check-selected");
@@ -23,7 +23,7 @@ function contactSelected (contact) {
 //----------------------- visibility selected
 function visibilitySelected (visibility) {
     const check = visibility.querySelector(".info-visibility .check");
-    const checkSelected = document.querySelector(".info-visibility .check-selected");
+    const checkSelected = document.querySelector(".info-visibility .check.check-selected");
 
     if (checkSelected !== null) {
         checkSelected.classList.remove("check-selected");
@@ -153,20 +153,18 @@ function renderMessages () {
             `
         }
 
-       if (content[i].type === "private_message") {
+       if (content[i].type === "private_message" && content[i].to === userName) {
             messages.innerHTML += `
                 <div class="private-msg">
                     <span class="msg-time">${content[i].time}</span>
                     <span class="name">${content[i].from}</span>
                         reservadamente para 
-                    <span class="to">${content[i].to}:</span>
+                    <span class="to">${userName}:</span>
                     <span class="msg">${content[i].text}</span>
                 </div>
             `
         }      
     }
-    
-    message="";
 
     autoScroll(); //scroll automatico
     setInterval(getMessages, 3000); //atualizar feed
@@ -216,6 +214,8 @@ function msgSuccess (){
     console.log(`Msg enviada com sucesso`);
 
     getMessages();
+
+    document.querySelector(".footer > textarea").value = ""; //clean textarea 
 }
 
 //erro no envio da mensagem
@@ -259,7 +259,7 @@ function renderUsers () {
             <div class="contact-options">
                 <ion-icon name="people"></ion-icon> 
                 <p>Todos</p>
-                <img class="check" src="./images/Vector.png" alt="">
+                <img class="check check-selected" src="./images/Vector.png" alt="">
             </div>
         </li>
     `;

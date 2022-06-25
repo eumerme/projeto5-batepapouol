@@ -49,7 +49,7 @@ body {
         color: #000000;        
         border: 1px solid #D7D7D7;
         border-radius: 4px;
-        outline-color: #FCA904;
+        outline-color: rgba(201, 145, 32, 0.5);
         text-align: center;
     }
 
@@ -225,6 +225,7 @@ body {
         font-weight: 400;
         display: flex;
         align-items: center;
+        position: relative;
     }
 
     .contact-options > ion-icon {
@@ -246,7 +247,7 @@ body {
     .check {
         width: 14px;
         height: 12px;
-        position: fixed;
+        position: absolute;
         right: 27px;
         opacity: 0; 
     }
