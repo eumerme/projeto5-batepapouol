@@ -153,19 +153,21 @@ function renderMessages () {
             `
         }
 
-        /*if (content[i].type === "privite_message") {
+       if (content[i].type === "private_message") {
             messages.innerHTML += `
                 <div class="private-msg">
                     <span class="msg-time">${content[i].time}</span>
                     <span class="name">${content[i].from}</span>
-                        para 
+                        reservadamente para 
                     <span class="to">${content[i].to}:</span>
                     <span class="msg">${content[i].text}</span>
                 </div>
             `
-        }      */    
+        }      
     }
     
+    message="";
+
     autoScroll(); //scroll automatico
     setInterval(getMessages, 3000); //atualizar feed
     setInterval(stillActive, 5000); //mostrar ativididade
@@ -193,7 +195,7 @@ function stillActive () {
 
 //----------------------PARA ENVIAR MENSAGEM 
 function sendMessage() {
-    message = document.querySelector(".footer > input").value;
+    message = document.querySelector(".footer > textarea").value;
 
     let promise = axios.post(
         "https://mock-api.driven.com.br/api/v6/uol/messages",
@@ -201,7 +203,7 @@ function sendMessage() {
             from: userName,
             to: "Todos", //ou privado para o bônus
             text: message,
-            type: "message" // ou "private_message" para o bônus
+            type: "message" // ou "private_message" para o bônus 
         }
     );
 

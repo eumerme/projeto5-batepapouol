@@ -52,26 +52,9 @@
                 <h1>Escolha um contato para enviar mensagens:</h1>
             </div>
             
-            <ul class="contacts">
-                
-                <li class="info-contact" onclick="contactSelected(this);">                   
-                    <div class="contact-options">
-                        <ion-icon name="people"></ion-icon> 
-                        <p>Todos</p>
-                        <img class="check" src="./images/Vector.png" alt="">
-                    </div>
-                </li>
-                
-                <li class="info-contact" onclick="contactSelected(this);">
-                    <div class="contact-options">
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>João</p>
-                        <img class="check" src="./images/Vector.png" alt="">
-                    </div>
-                </li>
-
-                
+            <ul class="contacts">                
             </ul>
+
 
             <!--visibility-->
             <div class="chooseVisibility">
@@ -105,7 +88,7 @@
 
     <!--footer-->
     <div class="footer">
-        <input type="text" placeholder="Escreva aqui..." >
+        <textarea placeholder="Escreva aqui..."></textarea>        
         <ion-icon onclick="sendMessage();" name="paper-plane-outline"></ion-icon>
     </div>
 
