@@ -52,7 +52,7 @@
                 <h1>Escolha um contato para enviar mensagens:</h1>
             </div>
             
-            <ul class="contacts">                
+            <ul class="contacts">                 
             </ul>
 
 
@@ -63,18 +63,18 @@
 
             <ul class="visibility">
 
-                <li class="info-visibility" onclick="visibilitySelected(this);">
+                <li class="info-visibility" onclick="visibilitySelected(this), visibilityNameSelected(this);">
                     <div class="visibility-options">
                         <ion-icon name="lock-open"></ion-icon>
-                        <p>Público</p>
+                        <p class="visib-name visib-selected">Público</p>
                         <img class="check-selected check" src="./images/Vector.png" alt="">
                     </div>
                 </li>
                 
-                <li  class="info-visibility" onclick="visibilitySelected(this);">                  
+                <li  class="info-visibility" onclick="visibilitySelected(this), visibilityNameSelected(this);">                  
                     <div class="visibility-options">
                         <ion-icon name="lock-closed"></ion-icon>
-                        <p>Privado</p>
+                        <p class="visib-name">Privado</p>
                         <img class="check" src="./images/Vector.png" alt="">
                     </div>
                 </li>

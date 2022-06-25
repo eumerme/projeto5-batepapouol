@@ -8,7 +8,8 @@ function closeSidebar (sidebar) {
     document.querySelector(".modal").classList.add("hide");
 }
 
-//----------------------- contact selected
+
+//----------------------- contact check selected
 function contactSelected (contact) {
     const check = contact.querySelector(".info-contact .check");
     const checkSelected = document.querySelector(".info-contact .check.check-selected");
@@ -19,6 +20,19 @@ function contactSelected (contact) {
 
     check.classList.add("check-selected");
 }
+
+//contact name selected (pra tentar comparar pelo inner.HTML com o user selecionado)
+function contactNameSelected (name) {
+    const contactName = name.querySelector(".info-contact .contact-name");
+    const nameSelected = document.querySelector(".info-contact .contact-name.contact-name-selected");
+
+    if (nameSelected !== null) {
+        nameSelected.classList.remove("contact-name-selected");
+    }
+
+    contactName.classList.add("contact-name-selected");
+}
+
 
 //----------------------- visibility selected
 function visibilitySelected (visibility) {
@@ -32,9 +46,29 @@ function visibilitySelected (visibility) {
     check.classList.add("check-selected");
 }
 
+//visibility name selected (pra tentar comparar pelo inner.HTML com o user selecionado)
+function visibilityNameSelected (visibName) {
+    const visib = visibName.querySelector(".info-visibility .visib-name");
+    const visibSelected = document.querySelector(".info-visibility .visib-name.visib-selected");
+
+    if (visibSelected !== null) {
+        visibSelected.classList.remove("visib-selected");
+    }
+
+    visib.classList.add("visib-selected");
+}
+
 
 
 //----------------------- PARA O SERVER / api -------------------------
+
+//---------------------- variaveis api
+let content = [];
+let onlineUsers = [];
+let userName;
+let messageText; 
+//------------------
+
 
 //-------------------- FECHAR LOGIN PAGE 
 function closeLoginPage () {
@@ -50,14 +84,6 @@ function closeLoadingPage (){
     loadingPage.classList.add("hide");
 }
 
-
-
-//---------------------- variaveis api
-let content = [];
-let onlineUsers = [];
-let userName;
-let message = "";   //==== VER COMO LIMPAR O INPUT DEPOIS QUE ENVIA A MSG
-//------------------
 
 
 //---------------PARA CADASTRAR NOME 
@@ -90,7 +116,6 @@ function loginSuccess() {
 function loginFail () {
     alert("Já existe um usuário online com esse nome, por favor escolha outro.");
 }
-
 
 
 
@@ -152,7 +177,8 @@ function renderMessages () {
                 </div>
             `
         }
-
+    
+        //msg privada enviada PARA mim
        if (content[i].type === "private_message" && content[i].to === userName) {
             messages.innerHTML += `
                 <div class="private-msg">
@@ -163,7 +189,7 @@ function renderMessages () {
                     <span class="msg">${content[i].text}</span>
                 </div>
             `
-        }      
+        }    
     }
 
     autoScroll(); //scroll automatico
@@ -193,20 +219,20 @@ function stillActive () {
 
 //----------------------PARA ENVIAR MENSAGEM 
 function sendMessage() {
-    message = document.querySelector(".footer > textarea").value;
+    messageText = document.querySelector(".footer > textarea").value;
 
     let promise = axios.post(
         "https://mock-api.driven.com.br/api/v6/uol/messages",
         {
             from: userName,
             to: "Todos", //ou privado para o bônus
-            text: message,
+            text: messageText,
             type: "message" // ou "private_message" para o bônus 
         }
     );
 
     promise.then(msgSuccess);
-    promise.catch(msgFail);
+    promise.catch(msgFail);    
 }
 
 //mensagem enviada com sucesso
@@ -222,7 +248,7 @@ function msgSuccess (){
 function msgFail (error){
     console.log(`Status code: ${error.response.status}`);
 
-    alert("Desculpe, vocẽ foi desconectado! Tente novamente.")
+    alert("Desculpe, você foi desconectado! Tente novamente.")
     window.location.reload();
 }
 
@@ -255,10 +281,10 @@ function renderUsers () {
 
     const users = document.querySelector(".contacts");
     users.innerHTML = `
-        <li class="info-contact" onclick="contactSelected(this);">                   
+         <li class="info-contact" onclick="contactSelected(this), contactNameSelected (this);">                   
             <div class="contact-options">
                 <ion-icon name="people"></ion-icon> 
-                <p>Todos</p>
+                <p class="contact-name contact-name-selected">Todos</p>
                 <img class="check check-selected" src="./images/Vector.png" alt="">
             </div>
         </li>
@@ -267,13 +293,13 @@ function renderUsers () {
     for (let i = 0; i < onlineUsers.length; i++) {
 
         users.innerHTML += `
-            <li class="info-contact" onclick="contactSelected(this);">
+            <li class="info-contact" onclick="contactSelected(this), contactNameSelected (this);">                   
                 <div class="contact-options">
-                    <ion-icon name="person-circle"></ion-icon>
-                    <p>${onlineUsers[i].name}</p>
+                    <ion-icon name="people"></ion-icon> 
+                    <p class="contact-name">${onlineUsers[i].name}</p>
                     <img class="check" src="./images/Vector.png" alt="">
                 </div>
-            </li>
+            </li>    
         `
         //tentar tirar meu nome da lista de paticipantes dps
     }
