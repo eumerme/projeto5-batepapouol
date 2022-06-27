@@ -21,7 +21,7 @@ function contactSelected (contact) {
     check.classList.add("check-selected");
 }
 
-//contact name selected (pra tentar comparar pelo inner.HTML com o user selecionado)
+/*/contact name selected (pra tentar comparar pelo inner.HTML com o user selecionado)
 function contactNameSelected (name) {
     const contactName = name.querySelector(".info-contact .contact-name");
     const nameSelected = document.querySelector(".info-contact .contact-name.contact-name-selected");
@@ -31,7 +31,7 @@ function contactNameSelected (name) {
     }
 
     contactName.classList.add("contact-name-selected");
-}
+}/*/
 
 
 //----------------------- visibility selected
@@ -46,7 +46,7 @@ function visibilitySelected (visibility) {
     check.classList.add("check-selected");
 }
 
-//visibility name selected (pra tentar comparar pelo inner.HTML com o user selecionado)
+/*/visibility name selected (pra tentar comparar pelo inner.HTML com o user selecionado)
 function visibilityNameSelected (visibName) {
     const visib = visibName.querySelector(".info-visibility .visib-name");
     const visibSelected = document.querySelector(".info-visibility .visib-name.visib-selected");
@@ -56,37 +56,50 @@ function visibilityNameSelected (visibName) {
     }
 
     visib.classList.add("visib-selected");
-}
+} /*/
 
 
-
-//----------------------- PARA O SERVER / api -------------------------
-
-//---------------------- variaveis api
+//---------------------- api
 let content = [];
 let onlineUsers = [];
 let userName;
 let messageText; 
-//------------------
 
 
-//-------------------- FECHAR LOGIN PAGE 
+//----------------------- close login page
 function closeLoginPage () {
     const loginPage = document.querySelector(".login-page");
     loginPage.classList.add("hide");
 
-    setTimeout(closeLoadingPage, 1000); //fechar loading page
+    setTimeout(closeLoadingPage, 1000);
 }
 
-// ------------- FECHAR LOADING PAGE
+//----------------------- close loading page
 function closeLoadingPage (){
     const loadingPage = document.querySelector(".loading-page");
     loadingPage.classList.add("hide");
 }
 
 
+//----------------------- send infos with keydown
+document.querySelector(".login-page > input").addEventListener("keydown", enterName);
 
-//---------------PARA CADASTRAR NOME 
+function enterName (event) {
+    if (event.which === 13) {
+        loginPage();
+    }
+}
+
+document.querySelector(".footer > textarea").addEventListener("keydown", enterMsg);
+
+function enterMsg (event) {
+    if (event.which === 13) {
+        sendMessage();
+    }
+}
+
+
+//----------------------- join bate-papo
 function loginPage () {    
     userName = document.querySelector(".login-page > input").value; 
 
@@ -101,54 +114,40 @@ function loginPage () {
         }
     );
     
-    promise.then(loginSuccess);   //VERIFICAÇÃO DA ENTRADA
-    promise.catch(loginFail);   //VERIFICÇÃO DO ERRO da entrada
+    promise.then(loginSuccess);  
+    promise.catch(loginFail); 
 }
 
-//VERIFICAÇÃO DA ENTRADA
 function loginSuccess() {
     closeLoginPage();
     getMessages (); 
     getUsers ();
 }
 
-//VERIFICAÇÃO DO ERRO da entrada
 function loginFail () {
     alert("Já existe um usuário online com esse nome, por favor escolha outro.");
 }
 
 
-
-//--------------------------------------
-
-//ETAPA 1 - BUSCAR AS MSGS
+//----------------------- get messages from api
 function getMessages () {
-    console.log(`pegou msgs`) //apagr dps
-
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
     
-    promise.then(processResponse); //se pegar as mensagens pra passar pro content
-    promise.catch(erro); //se der erro
+    promise.then(processResponse);
+    promise.catch(erro); 
 }
 
-//etapa 2 - se der erro
 function erro (error){
     console.log(`Status code: ${error.response.status}`);
 }
 
-//ETAPA 2 - JOGAR AS MSG DO SRVIDOR NA VARIAVEL CONTENT
 function processResponse(response) {
-    console.log(`colocou as msgs no content`) //apagar dps
-
     content = response.data;
     renderMessages ();
 }
 
-
-//ETAPA 3 - RENDERIZAR O CONTENT NO DOM
+//----------------------- render messages
 function renderMessages () {
-    console.log("renderizou as msgs no dom") //apagar dps
-
     const messages = document.querySelector(".main");
     messages.innerHTML = "";
 
@@ -178,7 +177,6 @@ function renderMessages () {
             `
         }
     
-        //msg privada enviada PARA mim
        if (content[i].type === "private_message" && content[i].to === userName) {
             messages.innerHTML += `
                 <div class="private-msg">
@@ -190,24 +188,21 @@ function renderMessages () {
                 </div>
             `
         }    
+
     }
 
-    autoScroll(); //scroll automatico
-    setInterval(getMessages, 3000); //atualizar feed
-    setInterval(stillActive, 5000); //mostrar ativididade
-    setInterval(getUsers, 10000); //atuliazar participantes online
+    autoScroll(); 
+    setInterval(getMessages, 3000); 
+    setInterval(stillActive, 5000); 
+    setInterval(getUsers, 10000); 
 }
 
-//scroll automatico
 function autoScroll () {
     const scroll = document.querySelector('.main div:last-child');
     scroll.scrollIntoView();
 }
 
-//MOSTRAR ATIVIDADE
 function stillActive () {
-    console.log("ainda ativo"); //apagar dps
-
     axios.post(
         "https://mock-api.driven.com.br/api/v6/uol/status", 
         {
@@ -217,7 +212,7 @@ function stillActive () {
 }
 
 
-//----------------------PARA ENVIAR MENSAGEM 
+//----------------------- send messages to api
 function sendMessage() {
     messageText = document.querySelector(".footer > textarea").value;
 
@@ -225,7 +220,7 @@ function sendMessage() {
         "https://mock-api.driven.com.br/api/v6/uol/messages",
         {
             from: userName,
-            to: "Todos", //ou privado para o bônus
+            to: "Todos", 
             text: messageText,
             type: "message" // ou "private_message" para o bônus 
         }
@@ -235,16 +230,12 @@ function sendMessage() {
     promise.catch(msgFail);    
 }
 
-//mensagem enviada com sucesso
 function msgSuccess (){
-    console.log(`Msg enviada com sucesso`);
-
     getMessages();
 
     document.querySelector(".footer > textarea").value = ""; //clean textarea 
 }
 
-//erro no envio da mensagem
 function msgFail (error){
     console.log(`Status code: ${error.response.status}`);
 
@@ -253,32 +244,21 @@ function msgFail (error){
 }
 
 
-
-
-//--------------------------BUSCAR PARTICIPANTES
+//----------------------- get online users from api
 function getUsers () {
-    console.log("buscando participantes");
-
     let promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
 
-    promise.then(users);  //se buscar os participantes
-    promise.catch(msgFail);   //se der erro
+    promise.then(users);  
+    promise.catch(msgFail);   
 }
 
-//etapa 2 - bse uscar participantes
 function users (response){
-    console.log(`colocou os participantes no content`);
-
-    onlineUsers = response.data
-   
+    onlineUsers = response.data   
     renderUsers ();
 }
 
-
-//ETAPA 3 - RENDERIZAR O ONLINEUSERS NO DOM
+//----------------------- render users
 function renderUsers () {
-    console.log("renderizou os participantes no dom") //apagar dps
-
     const users = document.querySelector(".contacts");
     users.innerHTML = `
          <li class="info-contact" onclick="contactSelected(this), contactNameSelected (this);">                   
@@ -291,7 +271,6 @@ function renderUsers () {
     `;
 
     for (let i = 0; i < onlineUsers.length; i++) {
-
         users.innerHTML += `
             <li class="info-contact" onclick="contactSelected(this), contactNameSelected (this);">                   
                 <div class="contact-options">
@@ -301,6 +280,5 @@ function renderUsers () {
                 </div>
             </li>    
         `
-        //tentar tirar meu nome da lista de paticipantes dps
     }
 }
