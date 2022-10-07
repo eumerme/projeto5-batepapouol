@@ -63,6 +63,10 @@ body {
 	cursor: pointer;
 }
 
+.enter:active {
+	transform: translateY(2px);
+}
+
 .loading-page {
 	width: 100%;
 	height: 100%;
@@ -112,6 +116,7 @@ body {
 .header > ion-icon {
 	width: 45px;
 	height: 45px;
+	cursor: pointer;
 }
 
 .header > img {
@@ -208,6 +213,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+	cursor: pointer;
 }
 
 .contact-options > ion-icon {
@@ -286,6 +292,7 @@ h1 {
 	width: 26px;
 	height: 26px;
 	margin-left: 22px;
+	cursor: pointer;
 }
 
 .hide {
